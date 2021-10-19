@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import styled from "styled-components";
-import { Container } from "../globals";
+import { Container } from "./globals";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDove } from "@fortawesome/free-solid-svg-icons";
 import { HeaderSearch } from "./HeaderSearch";

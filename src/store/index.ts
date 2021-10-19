@@ -1,14 +1,19 @@
-import { compose, createStore, applyMiddleware } from "redux";
-import { rootReducer } from "../reducers";
-import thunk from "redux-thunk";
+import {compose, createStore, applyMiddleware, combineReducers} from "redux";
+import {configureStore} from "@reduxjs/toolkit";
+import {gamesSlice} from "../slices/gamesSlice";
+import {popularGamesSlice} from "../slices/popularGamesSlice";
 
-const composeEnhancers =
-    typeof window === 'object' &&
-    (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
-        (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-            // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
-        }) : compose;
+export const rootReducer = combineReducers({
+    //games: gamesReducer
+    //[gamesAPI.reducerPath]: gamesAPI.reducer,
+    games: gamesSlice.reducer,
+    popular: popularGamesSlice.reducer
+})
 
-const enhancer = composeEnhancers(applyMiddleware(thunk))
+export const store = configureStore({
+    reducer: rootReducer,
+    //middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(gamesAPI.middleware)
+})
 
-export const store = createStore(rootReducer, enhancer)
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch
